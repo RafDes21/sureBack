@@ -16,7 +16,7 @@ export const getClientsById = async (req: Request, res: Response) => {
     const data = await Clients.findById(id);
     res.json(data);
   } catch (error) {
-    res.status(404).json({ message: "patient not exist" });
+    res.status(404).json({ message: "client not exist" });
   }
 };
 
@@ -31,23 +31,21 @@ export const updateClients = async (req: Request, res: Response) => {
     );
     res.status(200).send();
   } catch (error) {
-    res.status(404).json({ message: "patient not exist" });
+    res.status(404).json({ message: "client not exist" });
   }
 };
 
-export const deleteClients = async (req: Request, res: Response) => {
+export const deleteClient = async (req: Request, res: Response) => {
+  const id: string = req.params.id;
   
-  const ids: string = req.query.ids as string;
   try {
-    if (ids) {
-      await Clients.deleteMany({ _id: { $in: ids.split(",") } });
+    if (id) {
+      await Clients.deleteOne({ _id: id });
       res.status(200).send();
     }
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({ message: "has occurred while deleting the patient" });
+    res.status(500).json({ message: "Error occurred while deleting the client" });
   }
 };
 
@@ -60,6 +58,6 @@ export const createClients = async (req: Request, res: Response) => {
     res.send(200);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "error to create a patient" });
+    res.status(500).json({ message: "error to create a client" });
   }
 };
