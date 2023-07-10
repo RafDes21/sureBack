@@ -41,7 +41,7 @@ export const deleteClient = async (req: Request, res: Response) => {
   try {
     if (id) {
       await Clients.deleteOne({ _id: id });
-      res.status(200).send();
+      res.status(200).json({message: "delete client!"});
     }
   } catch (error) {
     console.error(error);
