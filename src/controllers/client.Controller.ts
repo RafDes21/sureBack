@@ -3,7 +3,7 @@ import { Clients } from "../models/clientModel";
 
 export const getClients = async (_req: Request, res: Response) => {
   try {
-    const clients = await Clients.find().sort({ date: -1 });
+    const clients = await Clients.find().sort({ _id: -1 });  
     res.status(200).json(clients);
   } catch (error) {
     res.status(500).json({ message: "Error retrieving Clients" });
@@ -50,7 +50,7 @@ export const deleteClient = async (req: Request, res: Response) => {
 };
 
 export const createClients = async (req: Request, res: Response) => {
-  console.log(req.body);
+  
   try {
     const client = req.body;
     const newClient = new Clients(client);
